@@ -6,7 +6,7 @@ Find the best GIF.
 
 ![Screenshot](ScreenshotSearch.png)
 
-Share with your friend!
+Share with your friends!
 
 ![Screenshot](ScreenshotFunnyCats.png)
 
