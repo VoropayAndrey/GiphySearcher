@@ -1,6 +1,6 @@
-# giphy_searcher
+# GiphySearcher
 
-Search and share gifs
+Simple Flutter demo for iOS and Android for searching and sharing GIFs using Giphy API
 
 ## Getting Started
 
@@ -110,3 +110,14 @@ https://developer.android.com/studio/run/managing-avds
 flutter doctor
 
 30) Well done!
+
+
+## Clone and build project
+
+1) Open terminal and type:
+$ cd /your_project_folder/
+$ git clone https://github.com/VoropayAndrey/GiphySearcher.git
+$ cd GiphySearcher
+$ flutter packages get
+
+2) Open project folder with Android Studio and enjoy.
