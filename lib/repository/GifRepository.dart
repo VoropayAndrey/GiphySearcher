@@ -7,6 +7,7 @@ class GifRepository {
   GiphyCollection giphyCollection;
   GiphyClient client;
   static Exception lastException;
+  static Map<String, Uint8List> cache = new Map();
 
   GifRepository() {
     try {
@@ -39,17 +40,22 @@ class GifRepository {
   }
 
   static Future<Uint8List> loadImage(String url) async {
-      try {
-          final response = await get(url, headers: {'accept': 'image/*'});
-          if (response.statusCode == 200) {
-              return response.bodyBytes;
-          } else {
+    if(cache.containsKey(url)) {
+        return cache[url];
+    } else {
+        try {
+            final response = await get(url, headers: {'accept': 'image/*'});
+            if (response.statusCode == 200) {
+                cache.putIfAbsent(url, () => response.bodyBytes);
+                return response.bodyBytes;
+            } else {
 
-          }
-      } catch (e) {
+            }
+        } catch (e) {
           print(e);
-      }
-      return null;
+        }
+    }
+    return null;
   }
 
   static _handleException(Exception e) {
