@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:giphy_searcher/constants/constants.dart';
+import 'package:giphy_searcher/repository/gif_repository.dart';
 
 class MainInheritedWidget extends InheritedWidget {
+
+  GifRepository gifRepository;
   TextEditingController searchController = new TextEditingController();
   ScrollController scrollController = new ScrollController();
 
@@ -24,16 +27,32 @@ class MainWidget extends StatefulWidget {
 class MainWidgetState extends State<MainWidget> {
 
   void searchSubmitted(String query) {
-    print('query: ${query}');
+    final mainInheritedWidget = MainInheritedWidget.of(context);
+
+    GifRepository.search(query).then((repository) {
+      setState(() {
+        mainInheritedWidget.gifRepository = repository;
+        print('query: ${query}');
+      });
+    });
+
+
   }
 
   Widget _buildRow(BuildContext context, int index) {
-    return Text('index: ${index}');
+    final mainInheritedWidget = MainInheritedWidget.of(context);
+    return Text('index: ${index} url: ${mainInheritedWidget.gifRepository.giphyCollection.data[index].images.original}');
   }
 
   @override
   Widget build(BuildContext context) {
       final mainInheritedWidget = MainInheritedWidget.of(context);
+
+      var itemCount = 0;
+      if(mainInheritedWidget.gifRepository != null) {
+        itemCount = mainInheritedWidget.gifRepository.giphyCollection.data.length;
+      }
+
       return new Scaffold(
           appBar: AppBar(
               title: Text(Constants.APP_NAME)
@@ -63,7 +82,7 @@ class MainWidgetState extends State<MainWidget> {
                           child: ListView.builder(
                               controller: mainInheritedWidget.scrollController,
                               padding: EdgeInsets.all(0.0),
-                              itemCount: 100,
+                              itemCount: itemCount,
                               itemBuilder: _buildRow
                           ),
                       )
