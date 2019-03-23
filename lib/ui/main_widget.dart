@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:giphy_searcher/constants/constants.dart';
 import 'package:giphy_searcher/repository/gif_repository.dart';
+import 'package:giphy_searcher/ui/gif_image.dart';
 
 class MainInheritedWidget extends InheritedWidget {
 
@@ -55,7 +56,15 @@ class MainWidgetState extends State<MainWidget> {
 
   Widget _buildRow(BuildContext context, int index) {
     final mainInheritedWidget = MainInheritedWidget.of(context);
-    return Text('index: ${index} url: ${mainInheritedWidget.gifRepository.giphyCollection.data[index].images.original}');
+    //return Text('index: ${index} url: ${mainInheritedWidget.gifRepository.giphyCollection.data[index].images.original}');
+    return Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+            GifImage(mainInheritedWidget.gifRepository.giphyCollection.data[index].images.original.url,
+            double.tryParse(mainInheritedWidget.gifRepository.giphyCollection.data[index].images.original.width),
+            double.tryParse( mainInheritedWidget.gifRepository.giphyCollection.data[index].images.original.height))
+        ]);
   }
 
   @override
