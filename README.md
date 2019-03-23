@@ -1,10 +1,26 @@
 # GiphySearcher
 
-Simple Flutter demo for iOS and Android for searching and sharing GIFs using Giphy API
+Simple Flutter demo for iOS and Android for searching and sharing GIFs using Giphy API.
 
-## Getting Started
+Find the best GIF.
 
-Install Flutter for iOS and Android, full instruction:
+![Screenshot](ScreenshotSearch.png)
+
+Share with your friends!
+
+![Screenshot](ScreenshotFunnyCats.png)
+
+## Clone and build project
+
+1) Open terminal and type:
+$ cd /your_project_folder/
+$ git clone https://github.com/VoropayAndrey/GiphySearcher.git
+$ cd GiphySearcher
+$ flutter packages get
+
+2) Open project folder with Android Studio and enjoy.
+
+## Install Flutter for iOS and Android, full instruction:
 
 1) First of all you need to have a Mac with macOS Sierra 10.12.6, High Siera 10.13 or MacOS Mojave 10.14. Hackintosh will not work for this case. At least if you really want to have a raging pain in the ass.
 Also if you use android virtual devices and iOS simulator your Mac must be powerful enough for handling IDE, AVD and simulator simultaneously. 
@@ -110,14 +126,3 @@ https://developer.android.com/studio/run/managing-avds
 flutter doctor
 
 30) Well done!
-
-
-## Clone and build project
-
-1) Open terminal and type:
-$ cd /your_project_folder/
-$ git clone https://github.com/VoropayAndrey/GiphySearcher.git
-$ cd GiphySearcher
-$ flutter packages get
-
-2) Open project folder with Android Studio and enjoy.
