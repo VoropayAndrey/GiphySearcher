@@ -25,13 +25,37 @@ class MainWidget extends StatefulWidget {
 
 class MainWidgetState extends State<MainWidget> {
 
+  void searchSubmitted(String query) {
+    print('query: ${query}');
+  }
+
   @override
   Widget build(BuildContext context) {
+      final mainInheritedWidget = MainInheritedWidget.of(context);
       return new Scaffold(
           appBar: AppBar(
               title: Text(Constants.APP_NAME)
           ),
-          body: Text('Hey'),
+          body: Column(
+              children: [
+                  Container(
+                      margin: EdgeInsets.all(10.0),
+                      child: TextField(
+                          onSubmitted: searchSubmitted,
+                          controller: mainInheritedWidget.searchController,
+                          textAlign: TextAlign.center,
+                          decoration: InputDecoration(
+                              hintText: 'SEARCH',
+                              hintStyle: TextStyle(color: Colors.grey, fontSize: 18.0),
+                              alignLabelWithHint: true,
+                          ),
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold),
+                      ))
+              ]
+          ),
       );
   }
 }
