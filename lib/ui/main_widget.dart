@@ -8,9 +8,7 @@ class MainInheritedWidget extends InheritedWidget {
   MainInheritedWidget(Widget child) : super(child: child);
 
   @override
-  bool updateShouldNotify(InheritedWidget oldWidget) {
-
-  }
+  bool updateShouldNotify(InheritedWidget oldWidget) => false;
 
   static MainInheritedWidget of(BuildContext buildContext) {
     return buildContext.inheritFromWidgetOfExactType(MainInheritedWidget);
