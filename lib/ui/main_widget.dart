@@ -27,6 +27,10 @@ class MainWidgetState extends State<MainWidget> {
     print('query: ${query}');
   }
 
+  Widget _buildRow(BuildContext context, int index) {
+    return Text('index: ${index}');
+  }
+
   @override
   Widget build(BuildContext context) {
       final mainInheritedWidget = MainInheritedWidget.of(context);
@@ -51,7 +55,19 @@ class MainWidgetState extends State<MainWidget> {
                               color: Colors.black,
                               fontSize: 18.0,
                               fontWeight: FontWeight.bold),
-                      ))
+                      )
+                  ),
+                  Expanded(
+                      child: Container(
+                          margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          child: ListView.builder(
+                              controller: mainInheritedWidget.scrollController,
+                              padding: EdgeInsets.all(0.0),
+                              itemCount: 100,
+                              itemBuilder: _buildRow
+                          ),
+                      )
+                  ),
               ]
           ),
       );
