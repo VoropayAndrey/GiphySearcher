@@ -3,6 +3,8 @@ import 'package:giphy_searcher/constants/Constants.dart';
 import 'package:giphy_searcher/repository/GifRepository.dart';
 import 'package:giphy_searcher/ui/GifImage.dart';
 import 'dart:math';
+import 'package:share/share.dart';
+import 'package:giphy_searcher/utils/ColorUtils.dart';
 
 class MainInheritedWidget extends InheritedWidget {
 
@@ -57,23 +59,55 @@ class MainWidgetState extends State<MainWidget> {
   Widget _buildRow(BuildContext context, int index) {
     final mainInheritedWidget = MainInheritedWidget.of(context);
     //return Text('index: ${index} url: ${mainInheritedWidget.gifRepository.giphyCollection.data[index].images.original}');
-    return Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-            GifImage(mainInheritedWidget.gifRepository.giphyCollection.data[index].images.original.url,
-            double.tryParse(mainInheritedWidget.gifRepository.giphyCollection.data[index].images.original.width),
-            double.tryParse( mainInheritedWidget.gifRepository.giphyCollection.data[index].images.original.height))
-        ]);
+    return  GestureDetector(
+        onTap: () {
+            // Tap to share gif
+            Share.plainText(
+                title: "From GiphySearche Appr",
+                text: mainInheritedWidget.gifRepository.giphyCollection.data[index].images.original.url).share();
+        },
+        child: Container(
+            margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+            padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+                border: Border.all(color: Colors.black),
+                color: ColorUtils.getRandomColor(alpha: 0x0F),
+
+            ),
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                    GifImage(mainInheritedWidget.gifRepository.giphyCollection.data[index].images.original.url,
+                    double.tryParse(mainInheritedWidget.gifRepository.giphyCollection.data[index].images.original.width),
+                    double.tryParse( mainInheritedWidget.gifRepository.giphyCollection.data[index].images.original.height))
+                ]
+            )
+        )
+    );
   }
 
   @override
   Widget build(BuildContext context) {
       final mainInheritedWidget = MainInheritedWidget.of(context);
 
+      String errorMessage = "";
       var itemCount = 0;
-      if(mainInheritedWidget.gifRepository != null) {
+
+      if(mainInheritedWidget.gifRepository != null && mainInheritedWidget.gifRepository.giphyCollection != null) {
         itemCount = mainInheritedWidget.gifRepository.giphyCollection.data.length;
+        if(itemCount == 0) {
+          if(mainInheritedWidget.gifRepository.giphyCollection.meta.status != 200) {
+            errorMessage = mainInheritedWidget.gifRepository.giphyCollection.meta.status.toString() +
+                " " +
+                mainInheritedWidget.gifRepository.giphyCollection.meta.msg;
+          } else {
+            errorMessage = "Nothing found";
+          }
+        }
+      } else if(GifRepository.lastException != null) {
+        errorMessage = GifRepository.lastException.toString();
       }
 
       return new Scaffold(
@@ -89,6 +123,9 @@ class MainWidgetState extends State<MainWidget> {
                           controller: mainInheritedWidget.searchController,
                           textAlign: TextAlign.center,
                           decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.black)
+                              ),
                               hintText: 'SEARCH',
                               hintStyle: TextStyle(color: Colors.grey, fontSize: 18.0),
                               alignLabelWithHint: true,
@@ -98,6 +135,17 @@ class MainWidgetState extends State<MainWidget> {
                               fontSize: 18.0,
                               fontWeight: FontWeight.bold),
                       )
+                  ),
+                  Visibility(
+                    child: Text(errorMessage,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Colors.redAccent,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold
+                      ),
+                    ),
+                    visible: errorMessage.length > 0,
                   ),
                   Expanded(
                       child: Container(

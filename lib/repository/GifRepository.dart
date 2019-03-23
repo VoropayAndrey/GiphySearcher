@@ -20,6 +20,7 @@ class GifRepository {
     final repository = new GifRepository();
     try {
       repository.giphyCollection = await repository.client.search(query);
+      lastException = null;
     } catch(e) {
       _handleException(e);
     }
