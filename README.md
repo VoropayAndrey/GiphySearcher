@@ -1,8 +1,14 @@
 # GiphySearcher
 
-Simple Flutter demo for iOS and Android for searching and sharing GIFs using Giphy API
+Simple Flutter demo for iOS and Android for searching and sharing GIFs using Giphy API.
 
-![Screenshot](ScreenshotSearch.png){:height="30%" width="30%"}
+Find the best GIF.
+
+![Screenshot](ScreenshotSearch.png)
+
+Share with your friend!
+
+![Screenshot](ScreenshotFunnyCats.png)
 
 ## Clone and build project
 
