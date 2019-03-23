@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:giphy_searcher/ui/main_widget.dart';
+import 'package:giphy_searcher/ui/MainWidget.dart';
 
 void main() => runApp(MyApp());
 

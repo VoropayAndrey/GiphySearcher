@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:typed_data';
-import 'package:giphy_searcher/repository/gif_repository.dart';
-import 'package:giphy_searcher/utils/color_utils.dart';
+import 'package:giphy_searcher/repository/GifRepository.dart';
+import 'package:giphy_searcher/utils/ColorUtils.dart';
 
 class GifImage extends StatefulWidget {
   String url;

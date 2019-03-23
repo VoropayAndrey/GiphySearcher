@@ -1,4 +1,4 @@
-import 'package:giphy_searcher/constants/constants.dart';
+import 'package:giphy_searcher/constants/Constants.dart';
 import 'package:giphy_client/giphy_client.dart';
 import 'package:http/http.dart';
 import 'dart:typed_data';

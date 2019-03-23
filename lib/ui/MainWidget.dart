@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:giphy_searcher/constants/constants.dart';
-import 'package:giphy_searcher/repository/gif_repository.dart';
-import 'package:giphy_searcher/ui/gif_image.dart';
+import 'package:giphy_searcher/constants/Constants.dart';
+import 'package:giphy_searcher/repository/GifRepository.dart';
+import 'package:giphy_searcher/ui/GifImage.dart';
+import 'dart:math';
 
 class MainInheritedWidget extends InheritedWidget {
 
@@ -40,10 +41,9 @@ class MainWidgetState extends State<MainWidget> {
 
   }
 
-
   @override
   void initState() {
-    Future.delayed(Duration(seconds: 5), () {
+    Future.delayed(Duration(seconds: 4), () {
         final mainInheritedWidget = MainInheritedWidget.of(context);
         GifRepository.getTrending().then((repository) {
             setState(() {
@@ -103,6 +103,7 @@ class MainWidgetState extends State<MainWidget> {
                       child: Container(
                           margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
                           child: ListView.builder(
+                              key: new Key(Random().nextInt(0xFFFFFFFF).toString()),
                               controller: mainInheritedWidget.scrollController,
                               padding: EdgeInsets.all(0.0),
                               itemCount: itemCount,
