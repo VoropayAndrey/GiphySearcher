@@ -39,6 +39,20 @@ class MainWidgetState extends State<MainWidget> {
 
   }
 
+
+  @override
+  void initState() {
+    Future.delayed(Duration(seconds: 5), () {
+        final mainInheritedWidget = MainInheritedWidget.of(context);
+        GifRepository.getTrending().then((repository) {
+            setState(() {
+                mainInheritedWidget.gifRepository = repository;
+            });
+        });
+    });
+    super.initState();
+  }
+
   Widget _buildRow(BuildContext context, int index) {
     final mainInheritedWidget = MainInheritedWidget.of(context);
     return Text('index: ${index} url: ${mainInheritedWidget.gifRepository.giphyCollection.data[index].images.original}');

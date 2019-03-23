@@ -4,6 +4,7 @@ import 'package:giphy_client/giphy_client.dart';
 class GifRepository {
   GiphyCollection giphyCollection;
   GiphyClient client;
+  static Exception lastException;
 
   GifRepository() {
     try {
@@ -18,8 +19,24 @@ class GifRepository {
     try {
       repository.giphyCollection = await repository.client.search(query);
     } catch(e) {
-      print(e);
+      _handleException(e);
     }
     return repository;
+  }
+
+  static Future<GifRepository> getTrending() async {
+    final repository = new GifRepository();
+    try {
+      repository.giphyCollection = await repository.client.trending();
+      lastException = null;
+    } catch (e) {
+      _handleException(e);
+    }
+    return repository;
+  }
+
+  static _handleException(Exception e) {
+    lastException = e;
+    print(e);
   }
 }
